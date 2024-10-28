@@ -25,7 +25,7 @@ export default function Login() {
                     <button type="submit">Entrar</button>
                 </FormContainer>
                 <div>
-                    Não tem uma conta? <a href="/cadastro">Cadastre-se</a>
+                    Não tem uma conta? <a href="/register">Cadastre-se</a>
                 </div>
             </Main>
         </Container>
