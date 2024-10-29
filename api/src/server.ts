@@ -1,18 +1,12 @@
-import express from 'express'
+import express from 'express';
 
-import { Router, Request, Response } from 'express';
+import UserRouter from './routes/UserRoutes';
 
 const app = express();
 
-const route = Router()
-
 app.use(express.json())
 
-route.get('/', (req: Request, res: Response) => {
-    res.json({ message: 'hello world with Typescript' })
-})
+app.use("/users", UserRouter);
 
-app.use(route)
-
-
-app.listen(3333, () => 'server running on port 3333')   
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => `server running on port ${PORT}`)   
