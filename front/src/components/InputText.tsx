@@ -1,15 +1,22 @@
-interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
+import React from 'react';
+
+interface InputTextProps {
     label: string;
     type: string;
+    props?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
-export default function InputText({ label, type, ...props }: InputTextProps) {
+const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(({ label, type, props }, ref) => {
     return (
         <div>
             <label>{label}</label>
             <input
+                ref={ref}
                 type={type}
-                {...props} />
+                {...props}
+            />
         </div>
-    )
-}
+    );
+});
+
+export default InputText;
