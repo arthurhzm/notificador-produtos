@@ -1,22 +1,26 @@
 import React from 'react';
+import { FieldError } from "react-hook-form";
 
-interface InputTextProps {
+interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     type: string;
-    props?: React.InputHTMLAttributes<HTMLInputElement>;
+    errors?: FieldError;
 }
 
-const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(({ label, type, props }, ref) => {
-    return (
-        <div>
-            <label>{label}</label>
-            <input
-                ref={ref}
-                type={type}
-                {...props}
-            />
-        </div>
-    );
-});
+const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
+    ({ label, type, errors, ...props }, ref) => {
+        return (
+            <div>
+                <label>{label}</label>
+                <input
+                    ref={ref}
+                    type={type}
+                    {...props}
+                />
+                {errors && <span>{errors.message}</span>}
+            </div>
+        );
+    }
+);
 
 export default InputText;
