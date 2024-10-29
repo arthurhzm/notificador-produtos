@@ -5,6 +5,7 @@ import InputText from "../components/InputText";
 import Main from "../components/Main";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Button from "../components/Button";
 
 
 function RegisterForm() {
@@ -47,7 +48,10 @@ function RegisterForm() {
                 {...register("confirmPassword")}
                 errors={formState.errors.confirmPassword}
             />
-            <button type="submit">Cadastrar</button>
+            <Button
+                type="submit">
+                Cadastrar
+            </Button>
             <div>
                 Já tem uma conta? <a href="/">Entrar</a>
             </div>

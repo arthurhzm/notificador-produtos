@@ -5,6 +5,7 @@ import InputText from "../components/InputText";
 import Main from "../components/Main";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import Button from "../components/Button";
 
 function LoginForm() {
 
@@ -39,7 +40,10 @@ function LoginForm() {
                     {...register("password")}
                     errors={formState.errors.password}
                 />
-                <button type="submit">Entrar</button>
+                <Button
+                    type="submit">
+                    Entrar
+                </Button>
             </FormContainer>
             <div>
                 Não tem uma conta? <a href="/register">Cadastre-se</a>
