@@ -3,6 +3,10 @@ import { CreateUserProps } from "../types/UserTypes";
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 
+async function getUser(id: string) {
+    return await prisma.user.findUnique({ where: { id } });
+}
+
 async function createUser(data: CreateUserProps) {
     const { name, email, password } = data;
     const salt = await bcrypt.genSalt(10);
@@ -19,5 +23,6 @@ async function createUser(data: CreateUserProps) {
 }
 
 module.exports = {
+    getUser,
     createUser
 }

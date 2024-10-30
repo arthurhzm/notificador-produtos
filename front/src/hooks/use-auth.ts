@@ -9,8 +9,20 @@ const useAuthAPI = () => {
         return data;
     }
 
+    const getUser = async (id: string) => {
+        const { data } = await api.get(`/users/${id}`);
+        return data;
+    }
+
+    const auth = async (payload: { email: string, password: string }) => {
+        const { data } = await api.post("/auth", payload);
+        return data;
+    }
+
     return {
-        createUser
+        createUser,
+        getUser,
+        auth
     }
 
 }
