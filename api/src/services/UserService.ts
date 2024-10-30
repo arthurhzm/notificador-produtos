@@ -1,5 +1,5 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { CreateUserProps } from "../types/UserTypes";
+import { UserProps } from "../types/UserTypes";
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 
@@ -11,7 +11,7 @@ async function getUserByEmail(email: string) {
     return await prisma.user.findUnique({ where: { email } });
 }
 
-async function createUser(data: CreateUserProps) {
+async function createUser(data: UserProps) {
     const { name, email, password } = data;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);

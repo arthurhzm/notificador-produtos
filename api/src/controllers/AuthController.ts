@@ -10,9 +10,9 @@ export const auth = async (req: Request, res: Response): Promise<void> => {
             res.status(HttpStatusCode.BAD_REQUEST).json({ error: 'Email e senha são obrigatórios' });
             return;
         }
-        
-        await AuthService.auth(email, password);
-        res.status(HttpStatusCode.OK).json({ message: "Usuário autenticado com sucesso", data: {} });
+
+        const token = await AuthService.auth(email, password);
+        res.status(HttpStatusCode.OK).json({ message: "Usuário autenticado com sucesso", data: { token } });
     } catch (error: any) {
         res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message });
     }
