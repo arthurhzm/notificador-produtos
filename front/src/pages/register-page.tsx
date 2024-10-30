@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import useAuthAPI from "../hooks/use-auth";
 import { useToast } from "../contexts/ToastContext";
 import { useNavigate } from "react-router-dom";
+import Routes from "../contants/routes";
 
 
 function RegisterForm() {
@@ -35,7 +36,7 @@ function RegisterForm() {
     const onSubmit = async (data: RegisterFormType) => {
         await createUser(data);
         showSuccess("Usuário criado com sucesso");
-        navigate("/login")
+        navigate(Routes.LOGIN)
     }
 
     return (
@@ -70,7 +71,7 @@ function RegisterForm() {
                 Cadastrar
             </Button>
             <div>
-                Já tem uma conta? <a href="/">Entrar</a>
+                Já tem uma conta? <a href={Routes.LOGIN}>Entrar</a>
             </div>
         </FormContainer>
     )

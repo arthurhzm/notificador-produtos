@@ -6,6 +6,7 @@ import Main from "../components/Main";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
+import Routes from "../contants/routes";
 
 function LoginForm() {
 
@@ -46,7 +47,7 @@ function LoginForm() {
                 </Button>
             </FormContainer>
             <div>
-                Não tem uma conta? <a href="/register">Cadastre-se</a>
+                Não tem uma conta? <a href={Routes.REGISTER}>Cadastre-se</a>
             </div>
         </>
     )
