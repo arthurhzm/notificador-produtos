@@ -6,6 +6,7 @@ import Login from './pages/login-page'
 import Register from './pages/register-page'
 import { ToastProvider } from './contexts/ToastContext'
 import { AuthProvider } from './contexts/AuthContext'
+import PrivateRoute from './components/PrivateRoute'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,6 +16,9 @@ createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/" element={<h1>Home</h1>} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ToastProvider>

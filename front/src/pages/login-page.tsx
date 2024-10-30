@@ -9,11 +9,13 @@ import Button from "../components/Button";
 import Routes from "../contants/routes";
 import useAuthAPI from "../hooks/use-auth";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
 
     const { auth } = useAuthAPI();
-    const { setToken } = useAuth()
+    const { setToken } = useAuth();
+    const navigate = useNavigate();
 
     const schema = z.object({
         email: z.string().email({ message: "E-mail inválido" }),
@@ -29,6 +31,7 @@ function LoginForm() {
     const onSubmit = async (data: LoginFormType) => {
         const { token } = await auth(data);
         setToken(token);
+        navigate(Routes.MENU)
     }
 
     return (
