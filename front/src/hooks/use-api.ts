@@ -1,9 +1,11 @@
 import axios, { HttpStatusCode, isAxiosError } from "axios";
 import { useToast } from "../contexts/ToastContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const useApi = () => {
 
     const { showError } = useToast();
+    const { token } = useAuth();
 
     const api = axios.create({
         baseURL: import.meta.env.VITE_FETCH_URL,
@@ -28,6 +30,19 @@ const useApi = () => {
                 }
             }
 
+            return Promise.reject(error);
+        }
+    );
+
+    api.interceptors.request.use(
+        config => {
+            if (token) {
+                config.headers["Authorization"] = `Bearer ${token}`;
+            }
+
+            return config;
+        },
+        error => {
             return Promise.reject(error);
         }
     );

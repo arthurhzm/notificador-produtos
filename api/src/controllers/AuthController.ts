@@ -11,8 +11,31 @@ export const auth = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const token = await AuthService.auth(email, password);
+        const { token, refreshToken } = await AuthService.auth(email, password);
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000 // Expira em 7 dias
+        });
+
         res.status(HttpStatusCode.OK).json({ message: "Usuário autenticado com sucesso", data: { token } });
+    } catch (error: any) {
+        res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message });
+    }
+}
+
+export const refresh = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const refreshToken = req.cookies.refreshToken;
+
+        if (!refreshToken) {
+            res.status(HttpStatusCode.UNAUTHORIZED).json({ message: 'Token inválido' });
+            return;
+        }
+
+        const token = await AuthService.refresh(refreshToken);
+
+        res.status(HttpStatusCode.OK).json({ message: "Token atualizado com sucesso", data: { token } });
     } catch (error: any) {
         res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message });
     }
