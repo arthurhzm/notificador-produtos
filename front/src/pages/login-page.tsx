@@ -8,10 +8,12 @@ import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import Routes from "../contants/routes";
 import useAuthAPI from "../hooks/use-auth";
+import { useAuth } from "../contexts/AuthContext";
 
 function LoginForm() {
 
     const { auth } = useAuthAPI();
+    const { setToken } = useAuth()
 
     const schema = z.object({
         email: z.string().email({ message: "E-mail inválido" }),
@@ -25,7 +27,8 @@ function LoginForm() {
     })
 
     const onSubmit = async (data: LoginFormType) => {
-        await auth(data);
+        const { token } = await auth(data);
+        setToken(token);
     }
 
     return (
