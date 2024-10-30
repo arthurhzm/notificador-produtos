@@ -19,5 +19,5 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
     } catch (error: any) {
         res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message });
     }
-}
+};
 

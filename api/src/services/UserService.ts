@@ -7,6 +7,10 @@ async function getUser(id: string) {
     return await prisma.user.findUnique({ where: { id } });
 }
 
+async function getUserByEmail(email: string) {
+    return await prisma.user.findUnique({ where: { email } });
+}
+
 async function createUser(data: CreateUserProps) {
     const { name, email, password } = data;
     const salt = await bcrypt.genSalt(10);
@@ -24,5 +28,6 @@ async function createUser(data: CreateUserProps) {
 
 module.exports = {
     getUser,
+    getUserByEmail,
     createUser
 }
