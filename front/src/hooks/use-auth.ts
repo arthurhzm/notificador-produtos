@@ -19,10 +19,16 @@ const useAuthAPI = () => {
         return data;
     }
 
+    const refresh = async () => {
+        const { data } = await api.post("/auth/refresh");
+        return data;
+    }
+
     return {
         createUser,
         getUser,
-        auth
+        auth,
+        refresh
     }
 
 }
