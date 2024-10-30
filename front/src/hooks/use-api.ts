@@ -3,10 +3,10 @@ import { useToast } from "../contexts/ToastContext";
 
 const useApi = () => {
 
-    const { showError } = useToast()
+    const { showError } = useToast();
 
     const api = axios.create({
-        baseURL: import.meta.env.BASE_URL,
+        baseURL: import.meta.env.VITE_FETCH_URL,
         timeout: 5000,
         withCredentials: true,
         headers: {
@@ -32,6 +32,7 @@ const useApi = () => {
         }
     );
 
+    return { api };
 }
 
 export default useApi;

@@ -19,10 +19,10 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
         const { name, email, password } = req.body;
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({ data: { name, email, password: hashedPassword } });
-        res.status(HttpStatusCode.CREATED).json({ user });
+        await prisma.user.create({ data: { name, email, password: hashedPassword } });
+        res.status(HttpStatusCode.CREATED).json({ message: "Usuário criado com sucesso", data: {} });
     } catch (error) {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
     }
 }
 
@@ -33,7 +33,7 @@ export const getByEmail = async (req: Request, res: Response): Promise<void> => 
         const user = await prisma.user.findUnique({ where: { email } });
         res.status(HttpStatusCode.OK).json({ user });
     } catch (error) {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
+        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
     }
 };
 

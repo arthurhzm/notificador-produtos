@@ -1,9 +1,16 @@
+const cors = require("cors")
 import express from 'express';
-
 import UserRouter from './routes/UserRoutes';
 
 const app = express();
 
+// Middleware CORS
+const corsOptions = {
+    origin: 'http://localhost:5173', 
+    credentials: true, // Permite o envio de cookies
+};
+
+app.use(cors(corsOptions));
 app.use(express.json())
 
 app.use("/users", UserRouter);

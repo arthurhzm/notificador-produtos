@@ -6,9 +6,14 @@ import Main from "../components/Main";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../components/Button";
+import useAuthAPI from "../hooks/use-auth";
+import { useToast } from "../contexts/ToastContext";
 
 
 function RegisterForm() {
+    const { createUser } = useAuthAPI();
+    const { showSuccess } = useToast()
+
     const schema = z.object({
         name: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
         email: z.string().email({ message: "E-mail inválido" }),
@@ -26,7 +31,8 @@ function RegisterForm() {
     })
 
     const onSubmit = async (data: RegisterFormType) => {
-        console.log(data);
+        await createUser(data);
+        showSuccess("Usuário criado com sucesso");
     }
 
     return (
