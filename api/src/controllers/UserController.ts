@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import HttpStatusCode from "../contants/HttpStatusCode";
+const UserService = require("../services/UserService")
 const prisma = new PrismaClient();
-const bcrypt = require('bcrypt');
 
 export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -16,13 +16,10 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 
 export const createUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password } = req.body;
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-        await prisma.user.create({ data: { name, email, password: hashedPassword } });
+        await UserService.createUser(req.body);
         res.status(HttpStatusCode.CREATED).json({ message: "Usuário criado com sucesso", data: {} });
-    } catch (error) {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+    } catch (error: any) {
+        res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message });
     }
 }
 
