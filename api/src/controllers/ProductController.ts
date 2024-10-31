@@ -26,3 +26,13 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
         res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message });
     }
 }
+
+export const deleteProduct = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        await ProductService.deleteProduct(id);
+        res.status(HttpStatusCode.OK).json({ message: "Produto deletado com sucesso!" });
+    } catch (error: any) {
+        res.status(HttpStatusCode.BAD_REQUEST).json({ message: error.message });
+    }
+}

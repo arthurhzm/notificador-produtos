@@ -1,6 +1,6 @@
 export type ProductProps = {
     name: string,
-    link: string,
+    url: string,
     userId: string,
     interval: number,
     unit: string

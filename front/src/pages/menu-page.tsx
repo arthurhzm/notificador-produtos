@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import useProduct from "../hooks/use-product";
 import { ProductProps } from "../../types/product-types";
 import PageTitle from "../components/PageTitle";
+import { useToast } from "../contexts/ToastContext";
 
 type MenuOptionProps = {
     text: string;
@@ -26,7 +27,8 @@ function MenuOption({ text, route }: MenuOptionProps) {
 
 function ProductsGrid() {
     const [products, setProducts] = useState<ProductProps[] | []>([]);
-    const { getProducts } = useProduct()
+    const { getProducts, deleteProduct } = useProduct();
+    const { showSuccess } = useToast()
 
     useEffect(() => {
         if (products.length) return;
@@ -38,29 +40,43 @@ function ProductsGrid() {
 
         fetchProducts();
 
-    }, [getProducts, products.length])
+    }, []);
+
+    const handleDelete = async (id: string) => {
+        await deleteProduct(id);
+        showSuccess("Produto excluído com sucesso");
+        setProducts(products.filter(p => p.id != id));
+    }
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Link</th>
-                    <th>Intervalo</th>
-                    <th>Unidade</th>
-                </tr>
-            </thead>
-            <tbody>
-                {products.length && products.map((product: ProductProps, index) => (
-                    <tr key={index}>
-                        <td>{product.name}</td>
-                        <td>{product.url}</td>
-                        <td>{product.interval}</td>
-                        <td>{product.unit}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <div>
+            {products.length ? (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Link</th>
+                            <th>Intervalo</th>
+                            <th>Unidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.map((product: ProductProps, index) => (
+                            <tr key={index}>
+                                <td>{product.name}</td>
+                                <td>{product.url}</td>
+                                <td>{product.interval}</td>
+                                <td>{product.unit}</td>
+                                <td>
+                                    <button onClick={() => handleDelete(product.id)}>Excluir</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : <>Nenhum produto sendo rastreado no momento</>}
+        </div>
     )
 }
 

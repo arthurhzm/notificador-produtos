@@ -14,9 +14,15 @@ const useProduct = () => {
         return data;
     }
 
+    const deleteProduct = async (id: string) => {
+        const { data } = await api.delete(`/products/${id}`);
+        return data;
+    }
+
     return {
         createProduct,
-        getProducts
+        getProducts,
+        deleteProduct
     }
 }
 
