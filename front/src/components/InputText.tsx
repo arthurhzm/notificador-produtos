@@ -3,7 +3,7 @@ import { FieldError } from "react-hook-form";
 
 interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
-    type: string;
+    type: React.HTMLInputTypeAttribute;
     errors?: FieldError;
 }
 
