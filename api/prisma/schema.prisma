@@ -20,4 +20,19 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Product Product[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  url         String
+  interval    Float
+  unit        String 
+  userId      String   
+  User        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
 }

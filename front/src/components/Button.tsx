@@ -1,4 +1,6 @@
-type ButtonProps = {
+import React from "react";
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     type: "button" | "submit" | "reset";
     children: React.ReactNode;
 }

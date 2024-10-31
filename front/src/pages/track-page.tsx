@@ -1,14 +1,14 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import Button from "../components/Button";
 import Container from "../components/Container";
 import FormContainer from "../components/FormContainer";
-import Main from "../components/Main";
-import InputText from "../components/InputText";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import InputGroup from "../components/InputGroup";
-import Selectpicker from "../components/Selectpicker";
+import InputText from "../components/InputText";
+import Main from "../components/Main";
 import Option from "../components/Option";
-import Button from "../components/Button";
+import Selectpicker from "../components/Selectpicker";
 
 function ProductForm() {
 
@@ -30,13 +30,13 @@ function ProductForm() {
     const schema = z.object({
         name: z.string().min(3, { message: "O nome do produto deve ter pelo menos 3 caracteres" }),
         link: z.string().url("Link do produto deve ser uma URL válida"),
-        interval: z.number({message: "O valor deve ser um número"}).min(1, { message: "O intervalo deve ser maior que 0" }),
+        interval: z.number({ message: "O valor deve ser um número" }).min(1, { message: "O intervalo deve ser maior que 0" }),
         unit: z.enum(["minutes", "hours", "days"], { message: "Unidade de tempo inválida" })
     });
 
     type ProductFormType = z.infer<typeof schema>;
 
-    const { register, handleSubmit, formState } = useForm<ProductFormType>({
+    const { register, handleSubmit, formState, reset } = useForm<ProductFormType>({
         resolver: zodResolver(schema)
     });
 
@@ -74,10 +74,6 @@ function ProductForm() {
                 <Selectpicker
                     {...register("unit")}
                     errors={formState.errors.unit}>
-                    <Option
-                        value={""}
-                        text="SELECIONE 1"
-                    />
                     {UNITS.map((unit, index) => (
                         <Option
                             key={index}
@@ -89,6 +85,11 @@ function ProductForm() {
             </InputGroup>
             <Button type="submit">
                 Salvar
+            </Button>
+            <Button
+                type="button"
+                onClick={() => reset()}>
+                Limpar
             </Button>
         </FormContainer>
     )
