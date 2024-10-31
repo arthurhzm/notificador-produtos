@@ -34,7 +34,7 @@ function ProductForm() {
 
     const schema = z.object({
         name: z.string().min(3, { message: "O nome do produto deve ter pelo menos 3 caracteres" }),
-        link: z.string().url("Link do produto deve ser uma URL válida"),
+        url: z.string().url("Link do produto deve ser uma URL válida"),
         interval: z.number({ message: "O valor deve ser um número" }).min(1, { message: "O intervalo deve ser maior que 0" }),
         unit: z.enum(["minutes", "hours", "days"], { message: "Unidade de tempo inválida" })
     });
@@ -62,8 +62,8 @@ function ProductForm() {
             <InputText
                 label="Link do produto"
                 type="url"
-                {...register("link")}
-                errors={formState.errors.link}
+                {...register("url")}
+                errors={formState.errors.url}
             />
             <InputGroup>
                 <InputText

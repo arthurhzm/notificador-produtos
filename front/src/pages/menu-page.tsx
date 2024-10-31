@@ -31,17 +31,34 @@ function ProductsGrid() {
         if (products.length) return;
 
         const fetchProducts = async () => {
-            const res = await getProducts();
-            setProducts(res);
+            const { products } = await getProducts();
+            setProducts(products);
         }
 
         fetchProducts();
 
-    }, [products])
+    }, [getProducts, products.length])
 
     return (
         <table>
-
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Link</th>
+                    <th>Intervalo</th>
+                    <th>Unidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {products.length ? products.map((product: ProductProps, index) => (
+                    <tr key={index}>
+                        <td>{product.name}</td>
+                        <td>{product.url}</td>
+                        <td>{product.interval}</td>
+                        <td>{product.unit}</td>
+                    </tr>
+                )) : null}
+            </tbody>
         </table>
     )
 }

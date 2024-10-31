@@ -7,6 +7,11 @@ async function createProduct(product: ProductProps) {
     await prisma.product.create({ data: { name, url: link, userId, interval, unit } });
 }
 
+async function getProducts(userId: string) {
+    return await prisma.product.findMany({ where: { userId } });
+}
+
 module.exports = {
-    createProduct
+    createProduct,
+    getProducts
 }
