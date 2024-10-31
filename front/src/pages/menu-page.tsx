@@ -8,6 +8,12 @@ import { ProductProps } from "../../types/product-types";
 import PageTitle from "../components/PageTitle";
 import { useToast } from "../contexts/ToastContext";
 
+const Units: { [key: string]: string } = {
+    minutes: "minutos",
+    hours: "horas",
+    days: "dias"
+};
+
 type MenuOptionProps = {
     text: string;
     route: string;
@@ -56,8 +62,7 @@ function ProductsGrid() {
                         <tr>
                             <th>Nome</th>
                             <th>Link</th>
-                            <th>Intervalo</th>
-                            <th>Unidade</th>
+                            <th>Lembrete</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -65,9 +70,8 @@ function ProductsGrid() {
                         {products.map((product: ProductProps, index) => (
                             <tr key={index}>
                                 <td>{product.name}</td>
-                                <td>{product.url}</td>
-                                <td>{product.interval}</td>
-                                <td>{product.unit}</td>
+                                <td><a href={product.url}>Link</a></td>
+                                <td>a cada {product.interval} {Units[product.unit]}</td>
                                 <td>
                                     <button onClick={() => handleDelete(product.id)}>Excluir</button>
                                 </td>
