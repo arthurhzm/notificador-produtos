@@ -5,6 +5,7 @@ import Routes from "../contants/routes";
 import { useEffect, useState } from "react";
 import useProduct from "../hooks/use-product";
 import { ProductProps } from "../../types/product-types";
+import PageTitle from "../components/PageTitle";
 
 type MenuOptionProps = {
     text: string;
@@ -50,14 +51,14 @@ function ProductsGrid() {
                 </tr>
             </thead>
             <tbody>
-                {products.length ? products.map((product: ProductProps, index) => (
+                {products.length && products.map((product: ProductProps, index) => (
                     <tr key={index}>
                         <td>{product.name}</td>
                         <td>{product.url}</td>
                         <td>{product.interval}</td>
                         <td>{product.unit}</td>
                     </tr>
-                )) : null}
+                ))}
             </tbody>
         </table>
     )
@@ -67,10 +68,8 @@ export default function Menu() {
     return (
         <Container>
             <Main>
-                <h1>Menu principal</h1>
-                <MenuOption
-                    text={"Monitorar produto"}
-                    route={Routes.TRACK} />
+                <PageTitle title="Menu principal" />
+                <MenuOption text={"Monitorar produto"} route={Routes.TRACK} />
                 <ProductsGrid />
             </Main>
         </Container>
