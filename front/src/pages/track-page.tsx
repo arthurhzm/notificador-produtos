@@ -48,6 +48,7 @@ function ProductForm() {
     const onSubmit = async (data: ProductFormType) => {
         await createProduct(data);
         showSuccess("Produto salvo com sucesso, a partir de agora vamos monitorar o preço para você!");
+        reset();
     }
 
     return (

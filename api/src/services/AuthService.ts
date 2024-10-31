@@ -55,5 +55,6 @@ async function refresh(token: string) {
 
 module.exports = {
     auth,
-    refresh
+    refresh,
+    verifyRefreshToken
 }
