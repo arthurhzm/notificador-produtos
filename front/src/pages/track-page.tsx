@@ -9,8 +9,13 @@ import InputText from "../components/InputText";
 import Main from "../components/Main";
 import Option from "../components/Option";
 import Selectpicker from "../components/Selectpicker";
+import useProduct from "../hooks/use-product";
+import { useToast } from "../contexts/ToastContext";
 
 function ProductForm() {
+
+    const { createProduct } = useProduct();
+    const { showSuccess } = useToast()
 
     const UNITS = [
         {
@@ -41,7 +46,8 @@ function ProductForm() {
     });
 
     const onSubmit = async (data: ProductFormType) => {
-        console.log(data);
+        await createProduct(data);
+        showSuccess("Produto salvo com sucesso, a partir de agora vamos monitorar o preço para você!");
     }
 
     return (

@@ -1,10 +1,10 @@
-import { CreateUserProps } from './../../types/user-types';
+import { UserProps } from './../../types/user-types';
 import useApi from './use-api';
 const useAuthAPI = () => {
 
     const { api } = useApi();
 
-    const createUser = async (payload: CreateUserProps) => {
+    const createUser = async (payload: UserProps) => {
         const { data } = await api.post("/users", payload);
         return data;
     }
