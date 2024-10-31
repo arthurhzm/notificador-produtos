@@ -49,7 +49,8 @@ async function auth(email: string, password: string) {
 
 async function refresh(token: string) {
     const payload = verifyRefreshToken(token);
-    return generateToken(payload);
+    const { exp, ...userPayload } = payload;
+    return generateToken(userPayload);
 }
 
 module.exports = {
