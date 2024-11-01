@@ -70,7 +70,7 @@ function ProductsGrid() {
                         {products.map((product: ProductProps, index) => (
                             <tr key={index}>
                                 <td>{product.name}</td>
-                                <td><a href={product.url}>Link</a></td>
+                                <td><a href={product.url} target="_blank">Link</a></td>
                                 <td>a cada {product.interval} {Units[product.unit]}</td>
                                 <td>
                                     <button onClick={() => handleDelete(product.id)}>Excluir</button>

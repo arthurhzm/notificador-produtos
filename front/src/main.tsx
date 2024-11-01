@@ -18,10 +18,12 @@ createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path='/register' element={<Register />} />
+
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Menu />} />
               <Route path="/track" element={<Track />} />
             </Route>
+
           </Routes>
         </BrowserRouter>
       </ToastProvider>
