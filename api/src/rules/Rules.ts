@@ -1,3 +1,3 @@
-abstract class Rules {
+export abstract class Rules {
     abstract getSelector(): string;
 }
