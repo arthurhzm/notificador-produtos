@@ -1,6 +1,8 @@
+import { PrismaClient } from "@prisma/client";
 import { MercadoLivreRules } from "../rules/MercadoLivreRules";
 import { Rules } from "../rules/Rules";
 const puppeteer = require('puppeteer');
+const prisma = new PrismaClient();
 
 const getRulesClass = (url: string) => {
     if (url.includes("mercadolivre")) {
@@ -36,6 +38,18 @@ async function getProductPrice(link: string) {
     }
 
     const price = await fetchPrice(link, rulesClass);
+
+    if (!price) {
+        throw new Error("Preço não encontrado");
+    }
+
+    const product = await prisma.product.findUnique({ where: { url: link } });
+
+    if (!product) {
+        throw new Error("Produto não encontrado");
+    }
+
+    await prisma.productPrice.create({ data: { productId: product.id, price } });
 }
 
 module.exports = {
