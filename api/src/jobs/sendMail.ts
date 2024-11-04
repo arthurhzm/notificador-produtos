@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const MonitorService = require("../services/MonitorService");
+const ErrorLogService = require("../services/ErrorLogService");
 
 const prisma = new PrismaClient();
 
@@ -26,8 +27,8 @@ async function main() {
     await Promise.all(products.map(async product => {
         try {
             await MonitorService.getProductPrice(product.url);
-        } catch (error) {
-            
+        } catch (error: any) {
+            await ErrorLogService.productErrorLog({ productId: product.id, error: error.message });
         }
     }));
 }

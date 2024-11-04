@@ -54,9 +54,9 @@ async function getProductPrice(link: string) {
 
     await prisma.productPrice.create({ data: { productId: product.id, price } });
     
-    if (!lowestPrice || price < lowestPrice.price) {
+    // if (!lowestPrice || price < lowestPrice.price) {
         MailService.sendPriceNotification(product.id, price);
-    }
+    // }
 }
 
 module.exports = {
