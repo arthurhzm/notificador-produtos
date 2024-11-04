@@ -4,12 +4,13 @@ import express from 'express';
 import UserRouter from './routes/UserRoutes';
 import AuthRouter from './routes/AuthRoutes';
 import ProductRouter from './routes/ProductRouter';
+import './jobs/sendMail';
 
 const app = express();
 
 // Middleware CORS
 const corsOptions = {
-    origin: 'http://localhost:5173',    
+    origin: 'http://localhost:5173',
     credentials: true, // Permite o envio de cookies
 };
 

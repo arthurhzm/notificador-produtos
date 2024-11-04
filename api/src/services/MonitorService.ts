@@ -53,10 +53,10 @@ async function getProductPrice(link: string) {
     const lowestPrice = await prisma.productPrice.findFirst({ where: { productId: product.id }, orderBy: { price: 'asc' } });
 
     await prisma.productPrice.create({ data: { productId: product.id, price } });
-    
-    // if (!lowestPrice || price < lowestPrice.price) {
+
+    if (!lowestPrice || price < lowestPrice.price) {
         MailService.sendPriceNotification(product.id, price);
-    // }
+    }
 }
 
 module.exports = {

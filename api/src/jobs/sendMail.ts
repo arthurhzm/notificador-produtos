@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const MonitorService = require("../services/MonitorService");
 const ErrorLogService = require("../services/ErrorLogService");
+const cron = require("node-cron");
 
 const prisma = new PrismaClient();
 
@@ -18,7 +19,7 @@ async function fetchProducts() {
     return productsWithUsers;
 }
 
-async function main() {
+async function monitorProducts() {
 
     // Traz todos os produtos vinculados à usuários
     const products = await fetchProducts();
@@ -33,4 +34,8 @@ async function main() {
     }));
 }
 
-main().catch(console.error);
+cron.schedule("* * * * *", async () => {
+    console.log("Iniciando monitoramento de produtos");
+    await monitorProducts();
+    console.log("Monitoramento de produtos finalizado");
+});
