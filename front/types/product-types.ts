@@ -3,9 +3,17 @@ export type CreateProductProps = {
     url: string
 }
 
-export type ProductProps = {
+export type ProductUserProps = {
     id: string,
     name: string,
     url: string,
-    userId: string
+    userId: string,
+    Product: ProductProps
+}
+
+type ProductProps = {
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    url: string
 }

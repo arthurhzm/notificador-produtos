@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProductProps } from "../../types/product-types";
+import { ProductUserProps } from "../../types/product-types";
 import Container from "../components/Container";
 import Main from "../components/Main";
 import PageTitle from "../components/PageTitle";
@@ -27,7 +27,7 @@ function MenuOption({ text, route }: MenuOptionProps) {
 }
 
 function ProductsGrid() {
-    const [products, setProducts] = useState<ProductProps[] | []>([]);
+    const [products, setProducts] = useState<ProductUserProps[] | []>([]);
     const { getProducts, deleteProduct } = useProduct();
     const { showSuccess } = useToast()
 
@@ -61,10 +61,10 @@ function ProductsGrid() {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product: ProductProps, index) => (
+                        {products.map((product: ProductUserProps, index) => (
                             <tr key={index}>
                                 <td>{product.name}</td>
-                                <td><a href={product.url} target="_blank">Link</a></td>
+                                <td><a href={product.Product.url} target="_blank">Acessar</a></td>
                                 <td>
                                     <button onClick={() => handleDelete(product.id)}>Excluir</button>
                                 </td>
