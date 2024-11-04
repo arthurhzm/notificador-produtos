@@ -31,58 +31,58 @@ function MenuOption({ text, route }: MenuOptionProps) {
     )
 }
 
-function ProductsGrid() {
-    const [products, setProducts] = useState<ProductProps[] | []>([]);
-    const { getProducts, deleteProduct } = useProduct();
-    const { showSuccess } = useToast()
+// function ProductsGrid() {
+//     const [products, setProducts] = useState<ProductProps[] | []>([]);
+//     const { getProducts, deleteProduct } = useProduct();
+//     const { showSuccess } = useToast()
 
-    useEffect(() => {
-        if (products.length) return;
+//     useEffect(() => {
+//         if (products.length) return;
 
-        const fetchProducts = async () => {
-            const { products } = await getProducts();
-            setProducts(products);
-        }
+//         const fetchProducts = async () => {
+//             const { products } = await getProducts();
+//             setProducts(products);
+//         }
 
-        fetchProducts();
+//         fetchProducts();
 
-    }, []);
+//     }, []);
 
-    const handleDelete = async (id: string) => {
-        await deleteProduct(id);
-        showSuccess("Produto excluído com sucesso");
-        setProducts(products.filter(p => p.id != id));
-    }
+//     const handleDelete = async (id: string) => {
+//         await deleteProduct(id);
+//         showSuccess("Produto excluído com sucesso");
+//         setProducts(products.filter(p => p.id != id));
+//     }
 
-    return (
-        <div>
-            {products.length ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Link</th>
-                            <th>Lembrete</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map((product: ProductProps, index) => (
-                            <tr key={index}>
-                                <td>{product.name}</td>
-                                <td><a href={product.url} target="_blank">Link</a></td>
-                                <td>a cada {product.interval} {Units[product.unit]}</td>
-                                <td>
-                                    <button onClick={() => handleDelete(product.id)}>Excluir</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : <>Nenhum produto sendo rastreado no momento</>}
-        </div>
-    )
-}
+//     return (
+//         <div>
+//             {products.length ? (
+//                 <table>
+//                     <thead>
+//                         <tr>
+//                             <th>Nome</th>
+//                             <th>Link</th>
+//                             <th>Lembrete</th>
+//                             <th>Ações</th>
+//                         </tr>
+//                     </thead>
+//                     <tbody>
+//                         {products.map((product: ProductProps, index) => (
+//                             <tr key={index}>
+//                                 <td>{product.name}</td>
+//                                 <td><a href={product.url} target="_blank">Link</a></td>
+//                                 <td>a cada {product.interval} {Units[product.unit]}</td>
+//                                 <td>
+//                                     <button onClick={() => handleDelete(product.id)}>Excluir</button>
+//                                 </td>
+//                             </tr>
+//                         ))}
+//                     </tbody>
+//                 </table>
+//             ) : <>Nenhum produto sendo rastreado no momento</>}
+//         </div>
+//     )
+// }
 
 export default function Menu() {
     return (
@@ -90,7 +90,7 @@ export default function Menu() {
             <Main>
                 <PageTitle title="Menu principal" />
                 <MenuOption text={"Monitorar produto"} route={Routes.TRACK} />
-                <ProductsGrid />
+                {/* <ProductsGrid /> */}
             </Main>
         </Container>
     )
