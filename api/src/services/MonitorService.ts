@@ -47,18 +47,16 @@ async function getProductPrice(link: string) {
     const product = await prisma.product.findUnique({ where: { url: link } });
 
     if (!product) {
-    throw new Error("Produto não encontrado");
+        throw new Error("Produto não encontrado");
     }
 
     const lowestPrice = await prisma.productPrice.findFirst({ where: { productId: product.id }, orderBy: { price: 'asc' } });
 
     await prisma.productPrice.create({ data: { productId: product.id, price } });
-
-    MailService.sendPriceNotification(product.id, price);
-
-    // if (!lowestPrice || price < lowestPrice.price) {
-    //     // enviar email
-    // }
+    
+    if (!lowestPrice || price < lowestPrice.price) {
+        MailService.sendPriceNotification(product.id, price);
+    }
 }
 
 module.exports = {

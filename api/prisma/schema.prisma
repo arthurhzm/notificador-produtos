@@ -29,8 +29,9 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  ProductPrice ProductPrice[]
-  ProductUser  ProductUser[]
+  ProductPrice    ProductPrice[]
+  ProductUser     ProductUser[]
+  ProductErrorLog ProductErrorLog[]
 }
 
 model ProductUser {
@@ -48,6 +49,15 @@ model ProductPrice {
   id        String   @id @default(cuid())
   productId String
   price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Product   Product  @relation(fields: [productId], references: [id])
+}
+
+model ProductErrorLog {
+  id        String   @id @default(cuid())
+  productId String
+  error     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Product   Product  @relation(fields: [productId], references: [id])
