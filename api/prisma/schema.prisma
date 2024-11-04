@@ -14,25 +14,43 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  Product Product[]
+  id          String        @id @default(cuid())
+  email       String        @unique
+  name        String?
+  password    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  ProductUser ProductUser[]
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  name        String
-  url         String
-  interval    Float
-  unit        String 
-  userId      String   
-  User        User     @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
+  id        String   @id @default(cuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ProductPrice ProductPrice[]
+  ProductUser  ProductUser[]
+}
+
+model ProductUser {
+  id        String   @id @default(cuid())
+  productId String
+  userId    String
+  name      String
+  interval  Float
+  unit      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Product   Product  @relation(fields: [productId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+model ProductPrice {
+  id        String   @id @default(cuid())
+  productId String
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Product   Product  @relation(fields: [productId], references: [id])
 }
