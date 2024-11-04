@@ -47,7 +47,7 @@ async function getProductPrice(link: string) {
     const product = await prisma.product.findUnique({ where: { url: link } });
 
     if (!product) {
-        throw new Error("Produto não encontrado");
+    throw new Error("Produto não encontrado");
     }
 
     const lowestPrice = await prisma.productPrice.findFirst({ where: { productId: product.id }, orderBy: { price: 'asc' } });

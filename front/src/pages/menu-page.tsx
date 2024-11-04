@@ -8,11 +8,6 @@ import Routes from "../contants/routes";
 import { useToast } from "../contexts/ToastContext";
 import useProduct from "../hooks/use-product";
 
-const Units: { [key: string]: string } = {
-    minutes: "minutos",
-    hours: "horas",
-    days: "dias"
-};
 
 type MenuOptionProps = {
     text: string;
@@ -62,7 +57,6 @@ function ProductsGrid() {
                         <tr>
                             <th>Nome</th>
                             <th>Link</th>
-                            <th>Lembrete</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -71,7 +65,6 @@ function ProductsGrid() {
                             <tr key={index}>
                                 <td>{product.name}</td>
                                 <td><a href={product.url} target="_blank">Link</a></td>
-                                <td>a cada {product.interval} {Units[product.unit]}</td>
                                 <td>
                                     <button onClick={() => handleDelete(product.id)}>Excluir</button>
                                 </td>

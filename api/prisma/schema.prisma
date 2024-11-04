@@ -38,8 +38,6 @@ model ProductUser {
   productId String
   userId    String
   name      String
-  interval  Float
-  unit      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Product   Product  @relation(fields: [productId], references: [id])
