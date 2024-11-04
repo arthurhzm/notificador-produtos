@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { ProductProps } from "../types/ProductTypes";
-const MonitorService = require("./MonitorService")
 const prisma = new PrismaClient();
 
 async function createProduct(product: ProductProps) {
@@ -22,7 +21,15 @@ async function getProducts(userId: string) {
 }
 
 async function deleteProduct(id: string) {
-    await prisma.product.delete({ where: { id } });
+    const productUser = await prisma.productUser.findUnique({ where: { id } });
+    if (!productUser) throw new Error("ProductUser not found");
+
+    await prisma.productUser.delete({ where: { id } });
+
+    const productUsersCount = await prisma.productUser.count({ where: { productId: productUser.productId } });
+    if (productUsersCount === 0) {
+        await prisma.product.delete({ where: { id: productUser.productId } });
+    }
 }
 
 module.exports = {

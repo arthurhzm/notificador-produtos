@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { MercadoLivreRules } from "../rules/MercadoLivreRules";
 import { Rules } from "../rules/Rules";
+const MailService = require("./MailService");
 const puppeteer = require('puppeteer');
 const prisma = new PrismaClient();
 
@@ -53,9 +54,11 @@ async function getProductPrice(link: string) {
 
     await prisma.productPrice.create({ data: { productId: product.id, price } });
 
-    if (!lowestPrice || price < lowestPrice.price) {
-        // enviar email
-    }
+    MailService.sendPriceNotification(product.id, price);
+
+    // if (!lowestPrice || price < lowestPrice.price) {
+    //     // enviar email
+    // }
 }
 
 module.exports = {
