@@ -34,7 +34,7 @@ async function monitorProducts() {
     }));
 }
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("*/10 * * * *", async () => {
     console.log("Iniciando monitoramento de produtos");
     await monitorProducts();
     console.log("Monitoramento de produtos finalizado");
