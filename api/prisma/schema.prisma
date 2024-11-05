@@ -43,6 +43,8 @@ model ProductUser {
   updatedAt DateTime @updatedAt
   Product   Product  @relation(fields: [productId], references: [id])
   User      User     @relation(fields: [userId], references: [id])
+
+  @@unique([productId, userId])
 }
 
 model ProductPrice {
