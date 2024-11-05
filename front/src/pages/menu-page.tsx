@@ -62,8 +62,6 @@ function ProductsGrid() {
                     <label>Nome do produto</label>
                     <FormControl
                         onChange={(e) => {
-                            console.log('alo');
-
                             const value = e.target.value.toLowerCase();
                             setFilteredProducts(products.filter(product =>
                                 product.name.toLowerCase().includes(value)
