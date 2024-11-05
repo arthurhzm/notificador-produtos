@@ -30,12 +30,15 @@ async function deleteProduct(id: string) {
     if (!productUser) throw new Error("ProductUser not found");
 
     const productUsersCount = await prisma.productUser.count({ where: { productId: productUser.productId } });
-
     await prisma.productUser.delete({ where: { id } });
 
-    if (productUsersCount === 0) {
+    if (productUsersCount === 1) {
+        await prisma.productErrorLog.deleteMany({ where: { productId: productUser.productId } });
+        await prisma.productPrice.deleteMany({ where: { productId: productUser.productId } });
         await prisma.product.delete({ where: { id: productUser.productId } });
     }
+
+
 }
 
 module.exports = {
