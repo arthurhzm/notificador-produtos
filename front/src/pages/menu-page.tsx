@@ -74,7 +74,7 @@ function ProductsGrid() {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th>Nome</th>
+                                <th>Nome | Loja</th>
                                 <th>Link</th>
                                 <th>Ações</th>
                             </tr>
@@ -82,7 +82,17 @@ function ProductsGrid() {
                         <tbody>
                             {filteredProducts.map((product: ProductUserProps, index) => (
                                 <tr key={index}>
-                                    <td>{product.name}</td>
+                                    <td>
+                                        {product.name} <br />
+                                        <small className="fw-bold">
+                                            <a
+                                                style={{ textDecoration: "none" }}
+                                                className="text-danger"
+                                                href={new URL(product.Product.url).origin}>
+                                                {new URL(product.Product.url).origin}
+                                            </a>
+                                        </small>
+                                    </td>
                                     <td>
                                         <Button
                                             variant="outline-primary"
@@ -99,6 +109,7 @@ function ProductsGrid() {
                                         </Button>
                                     </td>
                                 </tr>
+
                             ))}
                         </tbody>
                     </Table>
