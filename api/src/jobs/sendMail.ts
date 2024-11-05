@@ -35,7 +35,7 @@ async function monitorProducts() {
 }
 
 cron.schedule("*/10 * * * *", async () => {
-    console.log("Iniciando monitoramento de produtos");
+    console.log("Iniciando monitoramento de produtos" + new Date());
     await monitorProducts();
-    console.log("Monitoramento de produtos finalizado");
+    console.log("Monitoramento de produtos finalizado" + new Date());
 });

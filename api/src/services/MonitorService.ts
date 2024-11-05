@@ -35,19 +35,19 @@ async function getProductPrice(link: string) {
 
     const rulesClass = getRulesClass(url.origin);
     if (!rulesClass) {
-        throw new Error("Loja não suportada");
+        throw new Error("Loja não suportada: " + url.origin);
     }
 
     const price = await fetchPrice(link, rulesClass);
 
     if (!price) {
-        throw new Error("Preço não encontrado");
+        throw new Error("Preço não encontrado" + url.origin);
     }
 
     const product = await prisma.product.findUnique({ where: { url: link } });
 
     if (!product) {
-        throw new Error("Produto não encontrado");
+        throw new Error("Produto não encontrado" + url.origin);
     }
 
     const lowestPrice = await prisma.productPrice.findFirst({ where: { productId: product.id }, orderBy: { price: 'asc' } });

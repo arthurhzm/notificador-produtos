@@ -21,7 +21,7 @@ function MenuOption({ text, route }: MenuOptionProps) {
     return (
         <div>
             <Button
-                variant="outline-success" 
+                variant="outline-success"
                 onClick={() => navigate(route)}>
                 {text}
             </Button>
@@ -67,9 +67,20 @@ function ProductsGrid() {
                         {products.map((product: ProductUserProps, index) => (
                             <tr key={index}>
                                 <td>{product.name}</td>
-                                <td><a href={product.Product.url} target="_blank">Acessar</a></td>
                                 <td>
-                                    <button onClick={() => handleDelete(product.id)}>Excluir</button>
+                                    <Button
+                                        variant="outline-primary"
+                                        as="a"
+                                        href={product.Product.url} target="_blank">
+                                        Acessar
+                                    </Button>
+                                </td>
+                                <td>
+                                    <Button
+                                        variant="outline-danger"
+                                        onClick={() => handleDelete(product.id)}>
+                                        Excluir
+                                    </Button>
                                 </td>
                             </tr>
                         ))}

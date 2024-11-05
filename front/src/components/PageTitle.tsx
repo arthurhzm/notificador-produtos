@@ -4,6 +4,8 @@ type PageTitleProps = {
 
 export default function PageTitle({ title }: PageTitleProps) {
     return (
-        <h1>{title}</h1>
+        <div>
+            <h1>{title}</h1>
+        </div>
     )
 }
