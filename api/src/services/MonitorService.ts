@@ -5,6 +5,7 @@ import { KabumRules } from "../rules/KabumRules";
 import { PichauRules } from "../rules/PichauRules";
 import { AmazonRules } from "../rules/AmazonRules";
 import { AliExpressRules } from "../rules/AliExpressRules";
+import { CasasBahiaRules } from "../rules/CasasBahiaRules";
 const MailService = require("./MailService");
 const puppeteer = require('puppeteer');
 const prisma = new PrismaClient();
@@ -27,7 +28,7 @@ const getRulesClass = (url: string) => {
         return new AliExpressRules();
     }
     if (url.includes("casasbahia")) {
-        return new AliExpressRules();
+        return new CasasBahiaRules();
     }
 }
 
