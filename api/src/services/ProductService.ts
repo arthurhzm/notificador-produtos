@@ -37,8 +37,6 @@ async function deleteProduct(id: string) {
         await prisma.productPrice.deleteMany({ where: { productId: productUser.productId } });
         await prisma.product.delete({ where: { id: productUser.productId } });
     }
-
-
 }
 
 module.exports = {

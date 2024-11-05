@@ -41,8 +41,10 @@ const fetchPrice = async (url: string, rulesClass: Rules) => {
     const page = await browser.newPage();
 
     try {
-        await page.goto(url, { waitUntil: 'networkidle2' });
+        await page.goto(url, { waitUntil: 'networkidle2', timeout: 0 });
+
         const selector = rulesClass.getSelector();
+        await page.waitForSelector(selector, { timeout: 19000 });
         const priceElement = await page.$(selector);
 
         if (!priceElement) return null;
