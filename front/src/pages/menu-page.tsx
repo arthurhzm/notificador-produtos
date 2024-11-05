@@ -52,7 +52,7 @@ function ProductsGrid() {
         await deleteProduct(id);
         showSuccess("Produto excluído com sucesso");
         setProducts(products.filter(p => p.id != id));
-        setFilteredProducts(products);
+        setFilteredProducts(products.filter(p => p.id != id));
     }
 
     return (

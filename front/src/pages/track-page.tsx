@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Button from "../components/Button";
 import Container from "../components/Container";
 import FormContainer from "../components/FormContainer";
 import InputText from "../components/InputText";
 import Main from "../components/Main";
 import { useToast } from "../contexts/ToastContext";
 import useProduct from "../hooks/use-product";
+import { Button, Col, Row } from "react-bootstrap";
 
 function ProductForm() {
 
@@ -33,27 +33,43 @@ function ProductForm() {
 
     return (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
-            <InputText
-                label="Nome do produto"
-                type="text"
-                {...register("name")}
-                errors={formState.errors.name}
-            />
-            <InputText
-                label="Link do produto"
-                type="url"
-                {...register("url")}
-                errors={formState.errors.url}
-            />
-            <Button type="submit">
-                Salvar
-            </Button>
-            <Button
-                type="button"
-                onClick={() => reset()}>
-                Limpar
-            </Button>
-        </FormContainer>
+            <Row>
+                <Col md={"auto"}>
+                    <InputText
+                        label="Nome do produto"
+                        type="text"
+                        {...register("name")}
+                        errors={formState.errors.name}
+                    />
+                </Col>
+                <Col md>
+                    <InputText
+                        label="Link do produto"
+                        type="url"
+                        {...register("url")}
+                        errors={formState.errors.url}
+                    />
+                </Col>
+            </Row>
+            <Row className="justify-content-end mt-2">
+                <Col md={"auto"}>
+                    <Button
+                        variant="outline-danger"
+                        type="button"
+                        onClick={() => reset()}>
+                        Limpar
+                    </Button>
+                </Col>
+                <Col md={"auto"}>
+                    <Button
+                        variant="outline-success"
+                        type="submit">
+                        Salvar
+                    </Button>
+                </Col>
+            </Row>
+
+        </FormContainer >
     )
 }
 

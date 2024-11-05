@@ -13,6 +13,7 @@ const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
             <div>
                 <label>{label}</label>
                 <input
+                    className='form-control form-control-sm'
                     ref={ref}
                     type={type}
                     {...props}
