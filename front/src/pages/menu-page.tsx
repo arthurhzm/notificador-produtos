@@ -7,6 +7,7 @@ import PageTitle from "../components/PageTitle";
 import Routes from "../contants/routes";
 import { useToast } from "../contexts/ToastContext";
 import useProduct from "../hooks/use-product";
+import { Button, Table } from "react-bootstrap";
 
 
 type MenuOptionProps = {
@@ -19,9 +20,11 @@ function MenuOption({ text, route }: MenuOptionProps) {
 
     return (
         <div>
-            <button onClick={() => navigate(route)}>
+            <Button
+                variant="outline-success" 
+                onClick={() => navigate(route)}>
                 {text}
-            </button>
+            </Button>
         </div>
     )
 }
@@ -52,7 +55,7 @@ function ProductsGrid() {
     return (
         <div>
             {products.length ? (
-                <table>
+                <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -71,7 +74,7 @@ function ProductsGrid() {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </Table>
             ) : <>Nenhum produto sendo rastreado no momento</>}
         </div>
     )

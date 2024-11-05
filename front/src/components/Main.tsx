@@ -1,11 +1,13 @@
+import { Container } from "react-bootstrap";
+
 type MainProps = {
     children: React.ReactNode;
 };
 
 export default function Main({ children }: MainProps) {
     return (
-        <div>
+        <Container fluid>
             {children}
-        </div>
+        </Container>
     )
 }
