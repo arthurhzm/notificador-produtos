@@ -1,11 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { CasasBahiaRules } from "../rules/CasasBahiaRules";
+import { KabumRules } from "../rules/KabumRules";
 import { MercadoLivreRules } from "../rules/MercadoLivreRules";
 import { Rules } from "../rules/Rules";
-import { KabumRules } from "../rules/KabumRules";
-import { PichauRules } from "../rules/PichauRules";
-import { AmazonRules } from "../rules/AmazonRules";
-import { AliExpressRules } from "../rules/AliExpressRules";
-import { CasasBahiaRules } from "../rules/CasasBahiaRules";
 import { TerabyteShopRules } from "../rules/TerabyteShopRules";
 const MailService = require("./MailService");
 const puppeteer = require('puppeteer-extra');
@@ -20,15 +17,6 @@ const getRulesClass = (url: string) => {
     }
     if (url.includes("kabum")) {
         return new KabumRules();
-    }
-    if (url.includes("pichau")) {
-        return new PichauRules();
-    }
-    if (url.includes("amazon")) {
-        return new AmazonRules();
-    }
-    if (url.includes("aliexpress")) {
-        return new AliExpressRules();
     }
     if (url.includes("casasbahia")) {
         return new CasasBahiaRules();
