@@ -42,20 +42,44 @@ const fetchPrice = async (url: string, rulesClass: Rules) => {
 
     try {
         await page.goto(url, { waitUntil: 'networkidle2', timeout: 0 });
-
         const selector = rulesClass.getSelector();
-        await page.waitForSelector(selector, { timeout: 19000 });
-        const priceElement = await page.$(selector);
 
-        if (!priceElement) return null;
+        try {
+            // Aguarda o seletor, tentando capturar o preço diretamente
+            await page.waitForSelector(selector, { timeout: 3000 });
+            const priceElement = await page.$(selector);
 
-        const priceText = await page.evaluate((el: any) => el.textContent, priceElement);
-        const price = parseFloat(priceText.replace(/[^\d,.-]/g, '').replace(',', '.'));
-        return price
+            // Verifica se o elemento foi encontrado antes de prosseguir
+            if (priceElement) {
+                const priceText = await page.evaluate((el: any) => el.textContent, priceElement);
+                const price = parseFloat(priceText.replace(/[^\d,.-]/g, '').replace(',', '.'));
+                return price;
+            } else {
+                console.warn(`Elemento não encontrado para o seletor: ${selector}`);
+            }
+        } catch (error) {
+            // Caso o seletor falhe, tenta pelo Regex no HTML completo
+            const html = await page.content();
+            console.log('Fallback: buscando preço por Regex');
+
+            const price = rulesClass.getPriceUsingRegex(html);
+
+            // Log de fallback para depuração
+            if (price) {
+                console.log(`Preço encontrado pelo Regex: ${price}`);
+                return price;
+            } else {
+                console.warn('Preço não encontrado pelo Regex.');
+                console.warn(html); // Registra o HTML completo para análise
+            }
+        }
+
     } finally {
         await browser.close();
     }
+    return null; // Retorna null se nenhum preço foi encontrado
 }
+
 
 async function getProductPrice(link: string) {
     const url = new URL(link);
