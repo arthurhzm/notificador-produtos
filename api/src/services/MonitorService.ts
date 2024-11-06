@@ -39,7 +39,7 @@ const getRulesClass = (url: string) => {
 }
 
 const fetchPrice = async (url: string, rulesClass: Rules) => {
-    const browser = await puppeteer.launch({ headless: false });;
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
     try {
