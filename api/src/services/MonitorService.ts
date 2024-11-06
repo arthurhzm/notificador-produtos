@@ -8,8 +8,10 @@ import { AliExpressRules } from "../rules/AliExpressRules";
 import { CasasBahiaRules } from "../rules/CasasBahiaRules";
 import { TerabyteShopRules } from "../rules/TerabyteShopRules";
 const MailService = require("./MailService");
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
 const prisma = new PrismaClient();
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+puppeteer.use(StealthPlugin());
 
 const getRulesClass = (url: string) => {
 
@@ -37,7 +39,7 @@ const getRulesClass = (url: string) => {
 }
 
 const fetchPrice = async (url: string, rulesClass: Rules) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: false });;
     const page = await browser.newPage();
 
     try {
